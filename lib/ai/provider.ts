@@ -15,7 +15,10 @@ export interface ExplainDifferenceRequest {
   changeType: string;
 }
 
+import { DocumentSummary } from '@/domain/documents/document';
+
 export interface ILLMProvider {
   generateLegalAnswer(request: GenerateAnswerRequest): Promise<LegalAnswer>;
   explainDifference(request: ExplainDifferenceRequest): Promise<string>;
+  generateDocumentSummary(text: string): Promise<DocumentSummary>;
 }

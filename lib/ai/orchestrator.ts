@@ -47,3 +47,25 @@ export async function orchestrateAskFlow(rawRequest: unknown, ip: string = 'glob
   // Validation
   return validateOutput(rawAnswer, evidence);
 }
+
+import { documentStorage } from '@/lib/storage/in-memory-store';
+import { DocumentSummary } from '@/domain/documents/document';
+
+export async function orchestrateDocumentSummary(documentId: string, ip: string = 'global'): Promise<DocumentSummary> {
+  rateLimiter.checkRateLimit(ip);
+
+  const document = await documentStorage.getDocument(documentId);
+  if (!document) {
+    throw new DomainError('INVALID_DOCUMENT', 'Document not found.');
+  }
+
+  const chunks = await documentStorage.getChunksByDocument(documentId);
+  if (chunks.length === 0) {
+    throw new DomainError('PROCESSING_FAILED', 'Document has no text content to summarize.');
+  }
+
+  const fullText = chunks.map(c => c.text).join('\n\n');
+  
+  // LLM Call
+  return await provider.generateDocumentSummary(fullText);
+}

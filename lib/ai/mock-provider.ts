@@ -94,4 +94,18 @@ export class MockLLMProvider implements ILLMProvider {
     }
     return 'The difference requires manual review.';
   }
+
+  async generateDocumentSummary(text: string): Promise<import('@/domain/documents/document').DocumentSummary> {
+    const isHighRisk = text.toLowerCase().includes('indemnify') || text.toLowerCase().includes('liability');
+    
+    return {
+      summary: 'This document outlines the standard terms and conditions. It specifies the obligations of both parties, the notice periods required for termination, and the confidentiality requirements.',
+      checklist: [
+        'Review the termination clause and ensure you can comply with the notice period.',
+        'Verify that the liability cap is acceptable to your business risk.',
+        'Ensure all confidential information is properly marked as per the confidentiality section.'
+      ],
+      riskLevel: isHighRisk ? 'High' : 'Medium'
+    };
+  }
 }

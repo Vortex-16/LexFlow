@@ -14,3 +14,11 @@ export const DocumentMetadataSchema = z.object({
 });
 
 export type DocumentMetadata = z.infer<typeof DocumentMetadataSchema>;
+
+export const DocumentSummarySchema = z.object({
+  summary: z.string(),
+  checklist: z.array(z.string()),
+  riskLevel: z.enum(['Low', 'Medium', 'High']).optional(),
+});
+
+export type DocumentSummary = z.infer<typeof DocumentSummarySchema>;

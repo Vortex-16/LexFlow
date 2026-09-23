@@ -10,8 +10,9 @@ Everyday legal information and document navigation for non-lawyer users.
 
 ## Core capabilities
 
+- **Document Simplification & Summarization:** Upload complex legal documents to instantly generate a plain-language summary and an actionable checklist of key obligations, risks, and next steps.
 - **Grounded Legal-Information Q&A:** Ask questions about specific legal scenarios (e.g., landlord-tenant disputes, severance agreements) and get answers supported by cited legislation.
-- **Document Explanation:** Upload contracts or policies (TXT, MD, PDF) to break them down into readable chunks.
+- **Document Explanation:** Break down contracts or policies (TXT, MD, PDF) into readable chunks for focused analysis.
 - **Clause/Section Navigation:** Compare specific parts of documents and see how obligations change.
 - **Document Comparison:** Select two documents to perform a deterministic difference check, paired with semantic AI explanations of the differences.
 - **Visible Evidence and Citations:** Every AI claim is grounded in retrieved chunks of legal text. Fabrications are prevented by validating references before rendering.
