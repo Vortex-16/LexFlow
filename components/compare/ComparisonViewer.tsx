@@ -41,7 +41,7 @@ function DiffText({ difference }: { difference: Difference }) {
   return null;
 }
 
-export function ComparisonViewer({ comparison }: Props) {
+export const ComparisonViewer = React.memo(function ComparisonViewer({ comparison }: Props) {
   if (comparison.differences.length === 0 || comparison.overallSummary === 'No substantive differences detected.') {
     return (
       <div className="p-8 text-center bg-white rounded-lg shadow-sm border border-neutral-200">
@@ -117,4 +117,4 @@ export function ComparisonViewer({ comparison }: Props) {
       </div>
     </div>
   );
-}
+});

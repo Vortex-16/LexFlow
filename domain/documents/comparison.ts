@@ -10,7 +10,11 @@ export const DifferenceSchema = z.object({
   sectionBId: z.string().uuid().optional(),
   beforeText: z.string().optional(),
   afterText: z.string().optional(),
-  textDiff: z.any().optional(), // Can store the word-level diff markup or array
+  textDiff: z.array(z.object({
+    value: z.string(),
+    added: z.boolean().optional(),
+    removed: z.boolean().optional(),
+  })).optional(),
   summary: z.string().max(1000),
   isMaterial: z.boolean(),
   evidenceAId: z.string().uuid().optional(),

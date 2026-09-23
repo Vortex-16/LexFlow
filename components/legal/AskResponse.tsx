@@ -1,3 +1,4 @@
+import React from 'react';
 import { LegalAnswer } from '@/domain/legal/response';
 import { SourcePanel } from '../sources/SourcePanel';
 
@@ -5,7 +6,7 @@ interface AskResponseProps {
   response: LegalAnswer;
 }
 
-export function AskResponse({ response }: AskResponseProps) {
+export const AskResponse = React.memo(function AskResponse({ response }: AskResponseProps) {
   return (
     <div className="w-full flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
       
@@ -74,4 +75,4 @@ export function AskResponse({ response }: AskResponseProps) {
 
     </div>
   );
-}
+});

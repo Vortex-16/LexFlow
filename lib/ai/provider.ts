@@ -1,6 +1,7 @@
 import { LegalAnswer } from '@/domain/legal/response';
 import { Evidence } from '@/domain/legal/evidence';
 import { Jurisdiction } from '@/domain/legal/jurisdiction';
+import { DocumentSummary } from '@/domain/documents/document';
 
 export interface GenerateAnswerRequest {
   question: string;
@@ -14,8 +15,6 @@ export interface ExplainDifferenceRequest {
   afterText?: string;
   changeType: string;
 }
-
-import { DocumentSummary } from '@/domain/documents/document';
 
 export interface ILLMProvider {
   generateLegalAnswer(request: GenerateAnswerRequest): Promise<LegalAnswer>;

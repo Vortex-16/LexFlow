@@ -19,6 +19,7 @@ export const DocumentSummarySchema = z.object({
   summary: z.string(),
   checklist: z.array(z.string()),
   riskLevel: z.enum(['Low', 'Medium', 'High']).optional(),
+  questionsForLawyer: z.array(z.string()).optional(),
 });
 
 export type DocumentSummary = z.infer<typeof DocumentSummarySchema>;

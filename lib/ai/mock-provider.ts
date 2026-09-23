@@ -105,7 +105,12 @@ export class MockLLMProvider implements ILLMProvider {
         'Verify that the liability cap is acceptable to your business risk.',
         'Ensure all confidential information is properly marked as per the confidentiality section.'
       ],
-      riskLevel: isHighRisk ? 'High' : 'Medium'
+      riskLevel: isHighRisk ? 'High' : 'Medium',
+      questionsForLawyer: [
+        'Are the limitation of liability terms enforceable in my jurisdiction?',
+        'Does the termination clause allow early exit without penalty under any circumstances?',
+        'Are there any implied obligations not explicitly stated that I should be aware of?',
+      ],
     };
   }
 }

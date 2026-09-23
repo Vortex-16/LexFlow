@@ -1,9 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { DocumentSelector } from '@/components/compare/DocumentSelector';
-import { ComparisonViewer } from '@/components/compare/ComparisonViewer';
 import { ComparisonSummary } from '@/domain/documents/comparison';
+
+const ComparisonViewer = dynamic(
+  () => import('@/components/compare/ComparisonViewer').then(mod => ({ default: mod.ComparisonViewer })),
+  { loading: () => <div className="animate-pulse bg-neutral-100 h-40 rounded-lg" /> }
+);
 
 export default function ComparePage() {
   const [docAId, setDocAId] = useState<string | null>(null);

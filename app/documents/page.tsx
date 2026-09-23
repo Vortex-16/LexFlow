@@ -1,13 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import DocumentUploader from '@/components/documents/DocumentUploader';
-import DocumentViewer from '@/components/documents/DocumentViewer';
+import dynamic from 'next/dynamic';
 import { AskForm } from '@/components/legal/AskForm';
 import { AskResponse } from '@/components/legal/AskResponse';
 import { DocumentMetadata } from '@/domain/documents/document';
 import { AskRequest } from '@/domain/requests/ask';
 import { LegalAnswer } from '@/domain/legal/response';
+
+const DocumentUploader = dynamic(() => import('@/components/documents/DocumentUploader'), {
+  loading: () => <div className="animate-pulse bg-neutral-100 h-40 rounded-lg" />,
+});
+const DocumentViewer = dynamic(() => import('@/components/documents/DocumentViewer'), {
+  loading: () => <div className="animate-pulse bg-neutral-100 h-40 rounded-lg" />,
+});
 
 export default function DocumentsPage() {
   const [document, setDocument] = useState<DocumentMetadata | null>(null);

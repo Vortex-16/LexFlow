@@ -1,3 +1,4 @@
+import React from 'react';
 import { Evidence } from '@/domain/legal/evidence';
 import { Citation } from '@/domain/legal/citation';
 
@@ -7,7 +8,7 @@ interface SourcePanelProps {
   index: number;
 }
 
-export function SourcePanel({ evidence, citations, index }: SourcePanelProps) {
+export const SourcePanel = React.memo(function SourcePanel({ evidence, citations, index }: SourcePanelProps) {
   return (
     <div className="border border-neutral-200 rounded-lg overflow-hidden bg-white shadow-sm">
       <div className="bg-neutral-100 px-4 py-2 border-b border-neutral-200 flex justify-between items-center">
@@ -32,4 +33,4 @@ export function SourcePanel({ evidence, citations, index }: SourcePanelProps) {
       </div>
     </div>
   );
-}
+});

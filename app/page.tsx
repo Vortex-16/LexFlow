@@ -43,7 +43,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 sm:p-12 md:p-24 bg-white text-neutral-900 selection:bg-neutral-200 selection:text-neutral-900">
+    <main aria-label="Ask LexFlow" className="flex min-h-screen flex-col items-center p-4 sm:p-12 md:p-24 bg-white text-neutral-900 selection:bg-neutral-200 selection:text-neutral-900">
       <div className="z-10 w-full max-w-3xl flex flex-col items-center justify-center font-sans">
         
         <div className="mb-8 w-full flex flex-col">
@@ -55,7 +55,7 @@ export default function Home() {
 
         <div className="w-full bg-white border border-neutral-200 rounded-xl p-6 md:p-8 shadow-sm transition-all">
           {error && (
-            <div className="mb-6 bg-red-50 text-red-600 border border-red-200 p-4 rounded-md text-sm">
+            <div className="mb-6 bg-red-50 text-red-600 border border-red-200 p-4 rounded-md text-sm" role="alert">
               <span className="font-semibold block mb-1">Error</span>
               {error}
             </div>

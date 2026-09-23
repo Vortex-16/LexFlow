@@ -6,11 +6,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    // Pass a dummy IP for rate limiting demonstration
+    // Extract IP for rate limiting (enforced inside orchestrateAskFlow)
     const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
-    
-    const { rateLimiter } = await import('@/lib/security/rate-limit');
-    rateLimiter.checkRateLimit(ip);
     
     const result = await orchestrateAskFlow(body, ip);
     return NextResponse.json(result);

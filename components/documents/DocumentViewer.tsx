@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { DocumentMetadata, DocumentSummary } from '@/domain/documents/document';
 
 interface Props {
@@ -12,11 +12,14 @@ export default function DocumentViewer({ document }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const prevDocIdRef = useRef<string | undefined>(document?.documentId);
+
   // Reset state when a new document is uploaded
-  useEffect(() => {
+  if (document?.documentId !== prevDocIdRef.current) {
+    prevDocIdRef.current = document?.documentId;
     setSummary(null);
     setError(null);
-  }, [document?.documentId]);
+  }
 
   if (!document) {
     return (
@@ -38,8 +41,8 @@ export default function DocumentViewer({ document }: Props) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to summarize document');
       setSummary(data);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     } finally {
       setLoading(false);
     }
@@ -126,12 +129,31 @@ export default function DocumentViewer({ document }: Props) {
                   <ul className="space-y-2">
                     {summary.checklist.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-3 bg-neutral-50 p-3 rounded border border-neutral-100">
-                        <input type="checkbox" className="mt-1 flex-shrink-0 w-4 h-4 text-blue-600 rounded border-neutral-300 focus:ring-blue-500" />
+                        <input type="checkbox" aria-label={`Checklist item: ${item}`} className="mt-1 flex-shrink-0 w-4 h-4 text-blue-600 rounded border-neutral-300 focus:ring-blue-500" />
                         <span className="text-sm text-neutral-700">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
+
+                {summary.questionsForLawyer && summary.questionsForLawyer.length > 0 && (
+                  <div>
+                    <h3 className="font-bold text-neutral-900 mb-3 flex items-center gap-2">
+                      <svg className="w-5 h-5 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Questions for Your Lawyer
+                    </h3>
+                    <ul className="space-y-2">
+                      {summary.questionsForLawyer.map((q, idx) => (
+                        <li key={idx} className="flex items-start gap-3 bg-amber-50/50 p-3 rounded border border-amber-100">
+                          <span className="text-amber-600 font-bold text-sm mt-0.5">Q{idx + 1}</span>
+                          <span className="text-sm text-neutral-700">{q}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
           </div>
