@@ -37,11 +37,12 @@ export class PdfParser implements IDocumentParser {
   async parse(buffer: Buffer): Promise<ParsedDocument> {
     try {
       // Require dynamically to avoid Next.js build errors related to DOMMatrix
+      // Require directly to bypass module.parent debug execution in pdf-parse/index.js
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const pdfParse = require('pdf-parse');
-      // Log removed for security
-      // Parse the PDF
-      const data = await pdfParse(Buffer.from(buffer));
+      const pdfParse = require('pdf-parse/lib/pdf-parse.js');
+      // Pass Uint8Array to ensure PDFJS buffer compatibility across Node versions
+      const uint8 = new Uint8Array(buffer);
+      const data = await pdfParse(uint8);
       
       return {
         text: data.text,
